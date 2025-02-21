@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복리 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        input {
+            width: 80%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #link {
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>복리 계산기</h2>
+    <label>초기 투자금 (₩)</label><br>
+    <input type="number" id="initial" placeholder="예: 50000000"><br>
+    <label>월 수익률 (%)</label><br>
+    <input type="number" id="rate" placeholder="예: 3"><br>
+    <label>월 투자금 (₩)</label><br>
+    <input type="number" id="contribution" placeholder="예: 1000000"><br>
+    <label>투자 개월 수</label><br>
+    <input type="number" id="months" placeholder="예: 120"><br>
+    <button onclick="calculate()">계산하기</button>
+    <div id="result"></div>
+    <a id="link" href="https://smartstore.naver.com/powertoolkorea/products/8710661733?nl-query=3M+%ED%8A%B9%EA%B8%89+1%EA%B8%89+%EB%B0%A9%EC%A7%84%EB%A7%88%EC%8A%A4%ED%81%AC+%EC%82%B0%EC%97%85%EC%9A%A9%EB%A7%88%EC%8A%A4%ED%81%AC&nl-ts-pid=iJmn0dqVN8CssOw4f8Cssssss0o-471971&NaPm=ct%3Dm7elv2xk%7Cci%3Dc4c40ab535a528d5951c7386634fdb2e8c020d89%7Ctr%3Dsls%7Csn%3D4139928%7Chk%3Db00168be44a6cb9c3fe270754ce574a0e48814a3" target="_blank">관련 상품 보기</a>
+
+    <script>
+        function calculate() {
+            let initial = parseFloat(document.getElementById("initial").value);
+            let rate = parseFloat(document.getElementById("rate").value) / 100;
+            let contribution = parseFloat(document.getElementById("contribution").value);
+            let months = parseInt(document.getElementById("months").value);
+            
+            let finalAmount = initial;
+            for (let i = 0; i < months; i++) {
+                finalAmount = finalAmount * (1 + rate) + contribution;
+            }
+            
+            document.getElementById("result").innerText = `최종 금액: ₩${finalAmount.toLocaleString()}`;
+            document.getElementById("link").style.display = "block";
+        }
+    </script>
+</body>
+</html>
