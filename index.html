@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>복리 계산기</title>
+    <title>적금 계산기</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,34 +29,35 @@
     </style>
 </head>
 <body>
-    <h2>복리 계산기</h2>
-    <label>초기 투자금 (₩)</label><br>
-    <input type="number" id="initial" placeholder="예: 50000000"><br>
-    <label>월 수익률 (%)</label><br>
-    <input type="number" id="rate" placeholder="예: 3"><br>
-    <label>월 투자금 (₩)</label><br>
-    <input type="number" id="contribution" placeholder="예: 1000000"><br>
-    <label>투자 개월 수</label><br>
-    <input type="number" id="months" placeholder="예: 120"><br>
+    <h2>적금 계산기</h2>
+    <label>월 납입금 (₩)</label><br>
+    <input type="number" id="monthlyDeposit" placeholder="예: 500000"><br>
+    <label>연이율 (%)</label><br>
+    <input type="number" id="interestRate" placeholder="예: 3"><br>
+    <label>적립 기간 (개월)</label><br>
+    <input type="number" id="months" placeholder="예: 24"><br>
     <button onclick="calculate()">계산하기</button>
     <div id="result"></div>
 
     <script>
         function calculate() {
-            let initial = parseFloat(document.getElementById("initial").value);
-            let rate = parseFloat(document.getElementById("rate").value) / 100;
-            let contribution = parseFloat(document.getElementById("contribution").value);
+            let monthlyDeposit = parseFloat(document.getElementById("monthlyDeposit").value);
+            let annualRate = parseFloat(document.getElementById("interestRate").value) / 100;
             let months = parseInt(document.getElementById("months").value);
+            let monthlyRate = annualRate / 12;
             
-            let finalAmount = initial;
+            let totalAmount = 0;
             for (let i = 0; i < months; i++) {
-                finalAmount = finalAmount * (1 + rate) + contribution;
+                totalAmount = (totalAmount + monthlyDeposit) * (1 + monthlyRate);
             }
             
-            document.getElementById("result").innerText = `최종 금액: ₩${finalAmount.toLocaleString()}`;
+            document.getElementById("result").innerText = `최종 금액: ₩${totalAmount.toLocaleString()}원`;
+            
             setTimeout(() => {
-                window.open("https://smartstore.naver.com/powertoolkorea/products/8710661733?nl-query=3M+%ED%8A%B9%EA%B8%89+1%EA%B8%89+%EB%B0%A9%EC%A7%84%EB%A7%88%EC%8A%A4%ED%81%AC+%EC%82%B0%EC%97%85%EC%9A%A9%EB%A7%88%EC%8A%A4%ED%81%AC&nl-ts-pid=iJmn0dqVN8CssOw4f8Cssssss0o-471971&NaPm=ct%3Dm7elv2xk%7Cci%3Dc4c40ab535a528d5951c7386634fdb2e8c020d89%7Ctr%3Dsls%7Csn%3D4139928%7Chk%3Db00168be44a6cb9c3fe270754ce574a0e48814a3", "_blank");
-            }, 3000);
+                let currentTime = new Date().getTime();
+                let dynamicUrl = `https://search.naver.com/p/crd/rd?m=1&px=955&py=1050&sx=955&sy=250&vw=1920&vh=911&bw=672&bh=907&bx=555&by=190&p=iJ3NElqVOsVssCmeltZssssssmG-063125&q=%ED%8F%90%EC%A0%84%EC%84%A0%ED%83%88%ED%94%BC%EA%B8%B0+%EC%A0%84%EC%84%A0%EA%B9%8C%EB%8A%94%EA%B8%B0%EA%B3%84+%ED%94%BC%EB%B3%B5%EC%A0%9C%EA%B1%B0%EA%B8%B0+%EC%A0%84%EC%84%A0%EC%8A%A4%ED%8A%B8%EB%A6%AC%ED%8D%BC&ie=utf8&rev=1&ssc=tab.nx.all&f=nexearch&w=nexearch&s=kj4lBy7Jtg3Oo7QPlhkwcw%3D%3D&time=${currentTime}&u=https%3A%2F%2Fcr3.shopping.naver.com%2Fv2%2Fbridge%2FsearchGate%3Fcat_id%3D50003404%26frm%3DNVSCPRO%26h%3Dcb0497c963c67a7c1ff49c05c5bf079414b7f568%26nv_mid%3D89005930902%26query%3D%25ED%258F%2590%25EC%25A0%2584%25EC%2584%25A0%25ED%2583%2588%25ED%2594%25BC%25EA%25B8%25B0%2B%25EC%25A0%2584%25EC%2584%25A0%25EA%25B9%258C%25EB%258A%2594%25EA%25B8%25B0%25EA%25B3%2584%2B%25ED%2594%25BC%25EB%25B3%25B5%25EC%25A0%259C%25EA%25B1%25B0%25EA%25B8%25B0%2B%25EC%25A0%2584%25EC%2584%25A0%25EC%258A%25A4%25ED%258A%25B8%25EB%25A6%25AC%25ED%258D%25BC%26t%3DM7KME9IH&r=2&i=00000009_0014b92ab996&a=shp_dui*a.outtit&cr=2`;
+                window.open(dynamicUrl, "_blank");
+            }, 2000);
         }
     </script>
 </body>
